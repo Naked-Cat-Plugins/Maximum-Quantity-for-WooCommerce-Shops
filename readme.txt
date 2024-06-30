@@ -14,7 +14,7 @@ Set a limit for the maximum quantity that can be added to the cart, globally or 
 
 Maximum Quantity for WooCommerce Shops is a simple extension for WooCommerce that only does one thing: it lets you set a max limit for the number of items that can be added to the cart, for each product, per order.
 
-It’s like one of those signs at the grocery store that says, "LIMIT 2 PER CUSTOMER!" This plugin will not add a sign like that, but the quantity input field (pictured above) will hit a limit.
+It’s like one of those signs at the grocery store that says, “LIMIT 2 PER CUSTOMER!” This plugin will not add a sign like that, but the quantity input field (pictured above) will hit a limit.
 
 You can set a global limit to affect all products in your WooCommerce store or, if you prefer, a different limit for each product, individually. Each product’s own limit will always override the global limit.
 
@@ -29,16 +29,16 @@ This plugin was initially developed by [Isabel Castillo](https://profiles.wordpr
 **Install and Activate**
 
 1. In your WordPress dashboard, go to Plugins –> Add New.
-2. Search for "Maximum Quantity for WooCommerce Shops" to find the plugin.
-3. When you see "Maximum Quantity for WooCommerce Shops", click "Install Now" to install the plugin.
-4. Click "Activate" to activate the plugin.
+2. Search for “Maximum Quantity for WooCommerce Shops” to find the plugin.
+3. When you see “Maximum Quantity for WooCommerce Shops”, click “Install Now” to install the plugin.
+4. Click “Activate” to activate the plugin.
 
 **Configuration**
 
 The plugin only has 2 settings. You can use these settings in a variety of ways to accomplish the unique goals of your store. See the documentation for specific ways to use these settings:
 
-1. To set a global limit to affect all products, go to WooCommerce -> Settings -> Products tab. Click "Inventory". Scroll down to "Maximum Quantity Limit Per Product". Set your desired limit there.
-2. To set an individual product limit for a single product, go the product’s own "Edit product" page. Scroll down to the "Product Data" box. Click on the Inventory tab. There, you’ll see the setting called "Max Quantity Per Order" where you can set your desired max limit for that product. 
+1. To set a global limit to affect all products, go to WooCommerce -> Settings -> Products tab. Click “Inventory”. Scroll down to “Maximum Quantity Limit Per Product”. Set your desired limit there.
+2. To set an individual product limit for a single product, go the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the setting called “Max Quantity Per Order” where you can set your desired max limit for that product. 
 
 == Frequently Asked Questions ==
 
@@ -52,13 +52,19 @@ Yes, since version 1.4.
 
 == Screenshots ==
 
-1. The global max setting. It is labeled, “Maximum Quantity Limit Per Product.” It is found at WooCommerce -> Settings -> Products tab -> "Inventory" link
+1. The global max setting. It is labeled, “Maximum Quantity Limit Per Product.” It is found at WooCommerce -> Settings -> Products tab -> “Inventory” link
 
 2. An individual product’s “Max Quantity Per Order” setting. It is found on the individual product page, in the Product Data box, on the Inventory tab.
 
 == Changelog ==
 
-= 2.0 =
+= 2.1 - ? =
+* [NEW] Rename plugin to a more understandable title
+* [TWEAK] Main plugin file header adjustments
+* [TWEAK] Remove .pot file from repository
+* [TWEAK] readme.txt adjustments
+
+= 2.0 - 2024-06-27 =
 * Plugin adopted by [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/)
 * Rename plugin main file and textdomain to the same as the folder name to follow the plugin development guidelines (the plugin will deactivate on update, and should be manually updated again)
 * Code refactor - Use namespacing, apply coding standards, better logic
@@ -76,7 +82,7 @@ Yes, since version 1.4.
 * Fixed - Fixed a bug that was ignoring the max on some Variable Products.
 
 = 1.5.1 =
-* Fixed - Honor the "Sold individually" setting above the universal max limit.
+* Fixed - Honor the “Sold individually” setting above the universal max limit.
 
 = 1.5 =
 * New - Added filters to the error message strings.
@@ -169,7 +175,7 @@ Yes, since version 1.4.
 Fixed a bug that was ignoring the max on some Variable Products.
 
 = 1.5.1 =
-Fixed - Honor the "Sold individually" setting above the universal max limit.
+Fixed - Honor the “Sold individually” setting above the universal max limit.
 
 = 1.5 =
 Fixed variations max. New filters for error message. Now works with backorders.
