@@ -1,5 +1,5 @@
 ﻿=== Maximum Quantity for WooCommerce Shops ===
-Contributors: webdados
+Contributors: webdados, ptwooplugins
 Tags: max quantity, cart maximum, max, cart max, order limit
 Requires at least: 5.6
 Tested up to: 6.6
@@ -8,11 +8,11 @@ Stable tag: 2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Set a limit for the maximum quantity that can be added to the cart, globally or per product.
+Set a limit for the maximum quantity that can be added to the WooCommerce cart, globally or per product.
 
 == Description ==
 
-Maximum Quantity for WooCommerce Shops is a simple extension for WooCommerce that only does one thing: it lets you set a max limit for the number of items that can be added to the cart, for each product, per order.
+Maximum Quantity for WooCommerce Shops is a simple extension for WooCommerce that only does one thing: it lets you set a maximum limit for the number of items that can be added to the cart, for each product, per order.
 
 It’s like one of those signs at the grocery store that says, “LIMIT 2 PER CUSTOMER!” This plugin will not add a sign like that, but the quantity input field (pictured above) will hit a limit.
 
@@ -22,13 +22,15 @@ This works for all products in your WooCommerce store: Simple and Variable produ
 
 Customers do not have to be logged in for this to work. This works for guest buyers, as well as logged-in buyers.
 
-This plugin was initially developed by [Isabel Castillo](https://profiles.wordpress.org/isabel104/).
+This plugin was initially developed by [Isabel Castillo](https://profiles.wordpress.org/isabel104/) and later adopted by [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) / [PT Woo Plugins](https://profiles.wordpress.org/ptwooplugins/).
+
+Header photo by [Mick Haupt](https://unsplash.com/@rocinante_11).
 
 == Installation ==
 
 **Install and Activate**
 
-1. In your WordPress dashboard, go to Plugins –> Add New.
+1. In your WordPress dashboard, go to Plugins, Add New.
 2. Search for “Maximum Quantity for WooCommerce Shops” to find the plugin.
 3. When you see “Maximum Quantity for WooCommerce Shops”, click “Install Now” to install the plugin.
 4. Click “Activate” to activate the plugin.
@@ -37,8 +39,8 @@ This plugin was initially developed by [Isabel Castillo](https://profiles.wordpr
 
 The plugin only has 2 settings. You can use these settings in a variety of ways to accomplish the unique goals of your store. See the documentation for specific ways to use these settings:
 
-1. To set a global limit to affect all products, go to WooCommerce -> Settings -> Products tab. Click “Inventory”. Scroll down to “Maximum Quantity Limit Per Product”. Set your desired limit there.
-2. To set an individual product limit for a single product, go the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the setting called “Max Quantity Per Order” where you can set your desired max limit for that product. 
+1. To set a global limit to affect all products, go to WooCommerce, Settings, Products tab. Click “Inventory”. Scroll down to “Maximum quantity per product”. Set your desired limit there.
+2. To set an individual product limit for a single product, go the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the setting called “Max quantity per order” where you can set your desired maximum limit for that product. 
 
 == Frequently Asked Questions ==
 
@@ -52,9 +54,9 @@ Yes, since version 1.4.
 
 == Screenshots ==
 
-1. The global max setting. It is labeled, “Maximum Quantity Limit Per Product.” It is found at WooCommerce -> Settings -> Products tab -> “Inventory” link
+1. The global setting: It is labeled “Maximum quantity per product” and is found at WooCommerce, Settings, Products tab, Inventory link.
 
-2. An individual product’s “Max Quantity Per Order” setting. It is found on the individual product page, in the Product Data box, on the Inventory tab.
+2. The individual product’s setting: It is labeled “Max quantity per order” and is found on the individual product edit screen, in the Product Data box, on the Inventory tab.
 
 == Changelog ==
 
