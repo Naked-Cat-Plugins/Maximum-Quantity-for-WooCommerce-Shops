@@ -7,12 +7,13 @@
  * Author: PT Woo Plugins (by Webdados)
  * Author URI: https://ptwooplugins.com
  * Text Domain: woocommerce-max-quantity
- * Domain Path: languages
- * License: GPLv3
  * Requires at least: 5.6
+ * Tested up to: 6.6
  * Requires PHP: 7.0
  * WC requires at least: 5.0
  * WC tested up to: 9.1
+ * Requires Plugins: woocommerce
+ * License: GPLv3
  */
 
 namespace PTWooPlugins\MaxQuantityWC;
