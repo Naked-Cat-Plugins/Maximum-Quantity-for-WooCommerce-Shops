@@ -4,7 +4,7 @@ Tags: max quantity, cart maximum, max, cart max, order limit
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,7 +14,7 @@ Set a limit for the maximum quantity that can be added to the WooCommerce cart, 
 
 Maximum Quantity for WooCommerce Shops is a simple extension for WooCommerce that only does one thing: it lets you set a maximum limit for the number of items that can be added to the cart, for each product, per order.
 
-It’s like one of those signs at the grocery store that says, “LIMIT 2 PER CUSTOMER!” This plugin will not add a sign like that, but the quantity input field (pictured above) will hit a limit.
+It’s like one of those signs at the grocery store that says, “LIMIT 2 PER CUSTOMER!”. This plugin will not add a sign like that, but the quantity input field will hit a limit.
 
 You can set a global limit to affect all products in your WooCommerce store or, if you prefer, a different limit for each product, individually. Each product’s own limit will always override the global limit.
 
@@ -60,7 +60,7 @@ Yes, since version 1.4.
 
 == Changelog ==
 
-= 2.1 - ? =
+= 2.1 - 2024-06-30 =
 * [NEW] Rename plugin to a more understandable title
 * [TWEAK] Main plugin file header adjustments
 * [TWEAK] Remove .pot file from repository

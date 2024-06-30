@@ -3,7 +3,7 @@
  * Plugin Name: Maximum Quantity for WooCommerce Shops
  * Plugin URI:
  * Description: Set a limit for the maximum quantity that can be added to the cart, globally or per product.
- * Version: 2.0
+ * Version: 2.1
  * Author: PT Woo Plugins (by Webdados)
  * Author URI: https://ptwooplugins.com
  * Text Domain: woocommerce-max-quantity
@@ -69,7 +69,7 @@ function wc_max_qty_options( $settings ) {
 					),
 					'default'           => '',
 					'autoload'          => false,
-					'desc_tip'          => true,
+					'desc_tip'          => false,
 				);
 		}
 		$updated_settings[] = $section;
@@ -95,7 +95,6 @@ function wc_max_qty_add_product_field() {
 				esc_attr__( 'Store-wide threshold (%d)', 'woocommerce-max-quantity' ),
 				$default_max
 			) : '',
-			'desc_tip'    => 'true',
 			'description' => __( 'Optional. Set a maximum quantity limit allowed per order. Enter a number, 1 or greater.', 'woocommerce-max-quantity' ),
 		)
 	);
