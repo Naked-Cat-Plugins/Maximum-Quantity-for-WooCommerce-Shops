@@ -1,4 +1,4 @@
-﻿=== Max Quantity For WC Shops ===
+﻿=== Maximum Quantity for WooCommerce Shops ===
 Contributors: webdados
 Tags: max quantity, cart maximum, max, cart max, order limit
 Requires at least: 5.6
@@ -12,7 +12,7 @@ Set a limit for the maximum quantity that can be added to the cart, globally or 
 
 == Description ==
 
-Max Quantity For WC Shops is a simple extension for WooCommerce that only does one thing: it lets you set a max limit for the number of items that can be added to the cart, for each product, per order.
+Maximum Quantity for WooCommerce Shops is a simple extension for WooCommerce that only does one thing: it lets you set a max limit for the number of items that can be added to the cart, for each product, per order.
 
 It’s like one of those signs at the grocery store that says, "LIMIT 2 PER CUSTOMER!" This plugin will not add a sign like that, but the quantity input field (pictured above) will hit a limit.
 
@@ -29,8 +29,8 @@ This plugin was initially developed by [Isabel Castillo](https://profiles.wordpr
 **Install and Activate**
 
 1. In your WordPress dashboard, go to Plugins –> Add New.
-2. Search for "Max Quantity For WC Shops" to find the plugin.
-3. When you see "Max Quantity For WC Shops", click "Install Now" to install the plugin.
+2. Search for "Maximum Quantity for WooCommerce Shops" to find the plugin.
+3. When you see "Maximum Quantity for WooCommerce Shops", click "Install Now" to install the plugin.
 4. Click "Activate" to activate the plugin.
 
 **Configuration**

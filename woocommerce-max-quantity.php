@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Max Quantity for WC Shops
+ * Plugin Name: Maximum Quantity for WooCommerce Shops
  * Plugin URI:
  * Description: Set a limit for the maximum quantity that can be added to the cart, globally or per product.
  * Version: 2.0
