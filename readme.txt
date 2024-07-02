@@ -50,7 +50,31 @@ Yes, since version 1.4.
 
 = Can I set a different limit for different products? =
 
-Yes, since version 1.4. 
+Yes, since version 1.4.
+
+= Is this plugin compatible with the new WooCommerce High-Performance Order Storage? =
+
+Yes, since version 2.0.
+
+= Is this plugin compatible with the new WooCommerce block-based Cart and Checkout? =
+
+Yes, since version 2.0.
+
+= I need help, can I get technical support? =
+
+This is a free plugin. It’s our way of giving back to the wonderful WordPress community.
+
+There’s a support tab on the top of this page, where you can ask the community for help. We’ll try to keep an eye on the forums but we cannot promise to answer support tickets.
+
+If you reach us by email or any other direct contact means, we’ll assume you need, premium, and of course, paid-for support.
+
+= Where do I report security vulnerabilities found in this plugin? =
+ 
+You can report any security bugs found in the source code of this plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/woocommerce-max-quantity). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
+
+= Can I contribute with a translation? =
+
+Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/woocommerce-max-quantity) and help us out.
 
 == Screenshots ==
 

@@ -1,0 +1,5 @@
+﻿- Add premium plugins to readme.txt
+
+- Maximum quantity overall on the cart (sum of all products)
+
+- Minimum quantity (for all settings)
