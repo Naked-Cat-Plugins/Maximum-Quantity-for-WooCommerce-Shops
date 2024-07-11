@@ -92,7 +92,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/wooc
 
 = 2.0 - 2024-06-27 =
 * Plugin adopted by [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/)
-* Rename plugin main file and textdomain to the same as the folder name to follow the plugin development guidelines (the plugin will deactivate on update, and should be manually updated again)
+* Rename plugin main file and textdomain to the same as the folder name to follow the plugin development guidelines (the plugin will deactivate on update, and should be manually activated again)
 * Code refactor - Use namespacing, apply coding standards, better logic
 * Use WooCommerce CRUD functions instead of `get_post_meta` and `update_post_meta`
 * Fix maximum quantity on the WooCommerce block-based Cart
