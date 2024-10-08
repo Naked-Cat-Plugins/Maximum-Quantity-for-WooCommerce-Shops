@@ -3,7 +3,7 @@
  * Plugin Name: Maximum Quantity for WooCommerce Shops
  * Plugin URI:
  * Description: Set a limit for the maximum quantity that can be added to the WooCommerce cart, globally or per product.
- * Version: 2.2
+ * Version: 2.2.1
  * Author: PT Woo Plugins (by Webdados)
  * Author URI: https://ptwooplugins.com
  * Text Domain: woocommerce-max-quantity
