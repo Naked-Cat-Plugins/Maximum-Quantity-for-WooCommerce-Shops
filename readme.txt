@@ -97,6 +97,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/wooc
 
 = 2.4 - 2026-06-06 =
 * [FIX] Fatal error in edge cases (e.g. a cart item referencing a product/variation that no longer exists)
+* [DEV] Move plugin repository to [GitHub](https://github.com/Naked-Cat-Plugins/Maximum-Quantity-for-WooCommerce-Shops)
 * [DEV] Requires WordPress 5.9 and WooCommerce 7.3
 * [DEV] Tested up to WordPress 7.1-alpha-62456 and WooCommerce 10.8.1
 

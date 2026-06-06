@@ -110,6 +110,9 @@ function wc_max_qty_add_product_field() {
  */
 function wc_max_qty_save_product_field( $post_id ) {
 	$product = wc_get_product( $post_id );
+	if ( ! $product ) {
+		return;
+	}
 	$val     = $product->get_meta( '_isa_wc_max_qty_product_max' );
 	// phpcs:ignore WordPress.Security.NonceVerification.Missing
 	$new = isset( $_POST['_isa_wc_max_qty_product_max'] ) ? sanitize_text_field( wp_unslash( $_POST['_isa_wc_max_qty_product_max'] ) ) : ''; // Nonce verification is already taken care by WooCommerce
@@ -258,6 +261,9 @@ function wc_max_qty_add_to_cart_validation( $passed, $product_id, $quantity, $va
 		}
 		$already_in_cart = wc_max_qty_get_cart_qty( $product_id );
 		$product         = wc_get_product( $product_id );
+		if ( ! $product ) {
+			return $passed;
+		}
 		$product_title   = $product->get_title();
 		if ( ! empty( $already_in_cart ) ) {
 			// There was already a quantity of this item in cart prior to this addition.
@@ -343,6 +349,9 @@ function wc_max_qty_update_cart_validation( $passed, $cart_item_key, $values, $q
 		}
 		$already_in_cart = wc_max_qty_get_cart_qty( $values['product_id'], $cart_item_key );
 		$product         = wc_get_product( $values['product_id'] );
+		if ( ! $product ) {
+			return $passed;
+		}
 		if ( ( $already_in_cart + $quantity ) > $new_max ) {
 			wc_add_notice(
 				apply_filters(
