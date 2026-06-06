@@ -129,6 +129,9 @@ function wc_max_qty_save_product_field( $post_id ) {
  */
 function wc_get_product_max_limit( $product_id ) {
 	$product = wc_get_product( $product_id );
+	if ( ! $product ) {
+		return false;
+	}
 	$qty     = $product->get_meta( '_isa_wc_max_qty_product_max' );
 	if ( empty( $qty ) ) {
 		// Honor the Sold individually setting
