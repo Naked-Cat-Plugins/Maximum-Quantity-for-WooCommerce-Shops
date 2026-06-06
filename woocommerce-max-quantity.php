@@ -3,7 +3,7 @@
  * Plugin Name:          Maximum Quantity for WooCommerce Shops
  * Plugin URI:
  * Description:          Set a limit for the maximum quantity that can be added to the WooCommerce cart, globally or per product.
- * Version:              2.3
+ * Version:              2.4
  * Author:               Naked Cat Plugins (by Webdados)
  * Author URI:           https://nakedcatplugins.com
  * Text Domain:          woocommerce-max-quantity
@@ -113,7 +113,7 @@ function wc_max_qty_save_product_field( $post_id ) {
 	if ( ! $product ) {
 		return;
 	}
-	$val     = $product->get_meta( '_isa_wc_max_qty_product_max' );
+	$val = $product->get_meta( '_isa_wc_max_qty_product_max' );
 	// phpcs:ignore WordPress.Security.NonceVerification.Missing
 	$new = isset( $_POST['_isa_wc_max_qty_product_max'] ) ? sanitize_text_field( wp_unslash( $_POST['_isa_wc_max_qty_product_max'] ) ) : ''; // Nonce verification is already taken care by WooCommerce
 	if ( $val !== $new ) {
@@ -135,7 +135,7 @@ function wc_get_product_max_limit( $product_id ) {
 	if ( ! $product ) {
 		return false;
 	}
-	$qty     = $product->get_meta( '_isa_wc_max_qty_product_max' );
+	$qty = $product->get_meta( '_isa_wc_max_qty_product_max' );
 	if ( empty( $qty ) ) {
 		// Honor the Sold individually setting
 		$limit = $product->is_sold_individually() ? 1 : false;
@@ -264,7 +264,7 @@ function wc_max_qty_add_to_cart_validation( $passed, $product_id, $quantity, $va
 		if ( ! $product ) {
 			return $passed;
 		}
-		$product_title   = $product->get_title();
+		$product_title = $product->get_title();
 		if ( ! empty( $already_in_cart ) ) {
 			// There was already a quantity of this item in cart prior to this addition.
 			// Check if the total of already_in_cart + current addition quantity is more than our max.
