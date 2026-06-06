@@ -47,3 +47,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# Specific to your project
+createzip.command
+_todo.txt
