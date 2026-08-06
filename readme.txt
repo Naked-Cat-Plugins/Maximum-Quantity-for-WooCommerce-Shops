@@ -1,4 +1,4 @@
-﻿=== Maximum Quantity for WooCommerce Shops ===
+﻿=== Maximum and Multiple Quantity for WooCommerce Shops ===
 Contributors: nakedcatplugins, webdados
 Donate link: https://www.paypal.me/Wonderm00n
 Tags: max quantity, cart maximum, max, cart max, order limit
@@ -9,17 +9,17 @@ Stable tag: 2.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Set a limit for the maximum quantity that can be added to the WooCommerce cart, globally or per product.
+Set a maximum quantity limit and/or force a "sell in multiples of" quantity for the WooCommerce cart, globally or per product.
 
 == Description ==
 
-Maximum Quantity for WooCommerce Shops is a simple extension for WooCommerce that only does one thing: it lets you set a maximum limit for the number of items that can be added to the cart, for each product, per order.
+Maximum and Multiple Quantity for WooCommerce Shops is a simple extension for WooCommerce that lets you set a maximum limit for the number of items that can be added to the cart, and/or force customers to buy a product in multiples of a set number (e.g. 3, 6, 9, ...), for each product, per order.
 
-It’s like one of those signs at the grocery store that says, “LIMIT 2 PER CUSTOMER!”. This plugin will not add a sign like that, but the quantity input field will hit a limit.
+It’s like one of those signs at the grocery store that says, “LIMIT 2 PER CUSTOMER!” or “SOLD IN PACKS OF 3”. This plugin will not add a sign like that, but the quantity input field will honor the limit and/or the multiple.
 
-You can set a global limit to affect all products in your WooCommerce store or, if you prefer, a different limit for each product, individually. Each product’s own limit will always override the global limit.
+You can set a global maximum and/or multiple to affect all products in your WooCommerce store or, if you prefer, a different one for each product, individually. Each product’s own setting will always override the global one.
 
-This works for all products in your WooCommerce store: Simple and Variable products. 
+This works for all products in your WooCommerce store: Simple and Variable products.
 
 Customers do not have to be logged in for this to work. This works for guest buyers, as well as logged-in buyers.
 
@@ -32,16 +32,16 @@ Header photo by [Mick Haupt](https://unsplash.com/@rocinante_11).
 **Install and Activate**
 
 1. In your WordPress dashboard, go to Plugins, Add New.
-2. Search for “Maximum Quantity for WooCommerce Shops” to find the plugin.
-3. When you see “Maximum Quantity for WooCommerce Shops”, click “Install Now” to install the plugin.
+2. Search for “Maximum and Multiple Quantity for WooCommerce Shops” to find the plugin.
+3. When you see “Maximum and Multiple Quantity for WooCommerce Shops”, click “Install Now” to install the plugin.
 4. Click “Activate” to activate the plugin.
 
 **Configuration**
 
-The plugin only has 2 settings. You can use these settings in a variety of ways to accomplish the unique goals of your store. See the documentation for specific ways to use these settings:
+The plugin has 2 global settings and the same 2 settings again per product, so you can override the global ones for a specific product. You can use these settings in a variety of ways to accomplish the unique goals of your store:
 
-1. To set a global limit to affect all products, go to WooCommerce, Settings, Products tab. Click “Inventory”. Scroll down to “Maximum quantity per product”. Set your desired limit there.
-2. To set an individual product limit for a single product, go the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the setting called “Max quantity per order” where you can set your desired maximum limit for that product.
+1. To set a global maximum and/or multiple to affect all products, go to WooCommerce, Settings, Products tab. Click “Inventory”. Scroll down to “Maximum quantity per product” and “Sell in multiples of”. Set your desired values there.
+2. To override this for a single product, go the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the same two settings, “Max quantity per order” and “Sell in multiples of”, where you can set your desired values for that product.
 
 == Other (premium) plugins ==
 
@@ -62,6 +62,10 @@ Yes, since version 1.4.
 = Can I set a different limit for different products? =
 
 Yes, since version 1.4.
+
+= Can I force customers to buy a product in multiples of a set number (e.g. 3, 6, 9, ...)? =
+
+Yes, since version 3.0, globally or per product.
 
 = Is this plugin compatible with the new WooCommerce High-Performance Order Storage? =
 
@@ -94,6 +98,12 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/wooc
 2. The individual product’s setting: It is labeled “Max quantity per order” and is found on the individual product edit screen, in the Product Data box, on the Inventory tab.
 
 == Changelog ==
+
+= 3.0 =
+* [NEW] "Sell in multiples of" option, globally and per product, to force quantities to be bought in multiples of a set number (e.g. 3 allows 3, 6, 9, ...)
+* [NEW] Renamed to "Maximum and Multiple Quantity for WooCommerce Shops" to reflect the new option
+* [FIX] "Add to cart" buttons on product archives/lists (classic and block-based) now add a valid multiple instead of always trying to add 1, when a "Sell in multiples of" is set
+* [TWEAK] Added a "Settings" link to the plugin's entry on the Plugins list page
 
 = 2.4 - 2026-06-06 =
 * [FIX] Fatal error in edge cases (e.g. a cart item referencing a product/variation that no longer exists)
