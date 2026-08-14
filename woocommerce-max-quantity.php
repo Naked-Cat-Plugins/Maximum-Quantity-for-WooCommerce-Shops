@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:          Maximum and Multiple Quantity for WooCommerce Shops
+ * Plugin Name:          Maximum, Minimum and Multiple Quantity for WooCommerce Shops
  * Plugin URI:
- * Description:          Set a limit for the maximum quantity that can be added to the WooCommerce cart, globally or per product.
- * Version:              2.4
+ * Description:          Set a maximum and/or minimum quantity limit, and/or force a "sell in multiples of" quantity, for the WooCommerce cart, globally or per product.
+ * Version:              3.0
  * Author:               Naked Cat Plugins (by Webdados)
  * Author URI:           https://nakedcatplugins.com
  * Text Domain:          woocommerce-max-quantity
@@ -36,12 +36,13 @@ function init() {
 	if ( class_exists( 'WooCommerce' ) ) {
 		add_filter( 'woocommerce_inventory_settings', __NAMESPACE__ . '\wc_max_qty_options' );
 		add_filter( 'woocommerce_quantity_input_args', __NAMESPACE__ . '\wc_max_qty_input_args', 10, 2 );
-		add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\wc_max_qty_variation_input_qty_max', 10, 3 );
+		add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\wc_max_qty_variation_input_qty_limits', 10, 3 );
 		add_filter( 'woocommerce_add_to_cart_validation', __NAMESPACE__ . '\wc_max_qty_add_to_cart_validation', 1, 4 );
 		add_filter( 'woocommerce_update_cart_validation', __NAMESPACE__ . '\wc_max_qty_update_cart_validation', 1, 4 );
 		add_action( 'woocommerce_product_options_inventory_product_data', __NAMESPACE__ . '\wc_max_qty_add_product_field' );
 		add_action( 'woocommerce_process_product_meta', __NAMESPACE__ . '\wc_max_qty_save_product_field' );
 		add_filter( 'woocommerce_store_api_product_quantity_limit', __NAMESPACE__ . '\blocks_cart_max_qty', 10, 2 );
+		add_filter( 'woocommerce_store_api_product_quantity_minimum', __NAMESPACE__ . '\blocks_cart_min_qty', 10, 2 );
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), __NAMESPACE__ . '\wc_max_qty_action_links' );
 		add_filter( 'woocommerce_loop_add_to_cart_args', __NAMESPACE__ . '\wc_max_qty_loop_add_to_cart_args', 10, 2 );
 		add_filter( 'woocommerce_add_to_cart_quantity', __NAMESPACE__ . '\wc_max_qty_loop_add_to_cart_quantity', 10, 2 );
@@ -76,8 +77,8 @@ function wc_max_qty_options( $settings ) {
 		// Right after the core Inventory Options section ends, add our own subsection
 		if ( isset( $section['id'] ) && 'product_inventory_options' === $section['id'] && isset( $section['type'] ) && 'sectionend' === $section['type'] ) {
 				$updated_settings[] = array(
-					'title' => __( 'Maximum and Multiple Quantity for WooCommerce Shops', 'woocommerce-max-quantity' ),
-					'desc'  => __( 'Store-wide defaults for this plugin. Both settings below can be overridden for a specific product on that product\'s Inventory tab.', 'woocommerce-max-quantity' ),
+					'title' => __( 'Maximum, Minimum and Multiple Quantity for WooCommerce Shops', 'woocommerce-max-quantity' ),
+					'desc'  => __( 'Store-wide defaults for this plugin. All settings below can be overridden for a specific product on that product\'s Inventory tab.', 'woocommerce-max-quantity' ),
 					'id'    => 'isa_woocommerce_max_qty_settings',
 					'type'  => 'title',
 				);
@@ -85,6 +86,20 @@ function wc_max_qty_options( $settings ) {
 					'title'             => __( 'Maximum quantity per product', 'woocommerce-max-quantity' ),
 					'desc'              => __( 'This is the default maximum quantity that can be added to the cart per product. To overide this for a specific product, set it on the "Max quantity per order" field on the product Inventory tab.', 'woocommerce-max-quantity' ),
 					'id'                => 'isa_woocommerce_max_qty_limit',
+					'css'               => 'width: 75px;',
+					'type'              => 'number',
+					'custom_attributes' => array(
+						'min'  => 0,
+						'step' => 1,
+					),
+					'default'           => '',
+					'autoload'          => false,
+					'desc_tip'          => false,
+				);
+				$updated_settings[] = array(
+					'title'             => __( 'Minimum quantity per product', 'woocommerce-max-quantity' ),
+					'desc'              => __( 'This is the default minimum quantity that must be added to the cart per product. To overide this for a specific product, set it on the "Min quantity per order" field on the product Inventory tab.', 'woocommerce-max-quantity' ),
+					'id'                => 'isa_woocommerce_max_qty_min_limit',
 					'css'               => 'width: 75px;',
 					'type'              => 'number',
 					'custom_attributes' => array(
@@ -126,6 +141,7 @@ function wc_max_qty_options( $settings ) {
  */
 function wc_max_qty_add_product_field() {
 	$default_max      = (int) get_option( 'isa_woocommerce_max_qty_limit' );
+	$default_min      = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
 	$default_multiple = (int) get_option( 'isa_woocommerce_max_qty_multiple' );
 	echo '<div class="options_group">';
 	woocommerce_wp_text_input(
@@ -138,6 +154,18 @@ function wc_max_qty_add_product_field() {
 				$default_max
 			) : '',
 			'description' => __( 'Optional. Set a maximum quantity limit allowed per order. Enter a number, 1 or greater.', 'woocommerce-max-quantity' ),
+		)
+	);
+	woocommerce_wp_text_input(
+		array(
+			'id'          => '_isa_wc_max_qty_product_min',
+			'label'       => __( 'Min quantity per order', 'woocommerce-max-quantity' ),
+			'placeholder' => $default_min > 0 ? sprintf(
+				/* translators: %d: Default minimum quantity */
+				esc_attr__( 'Store-wide threshold (%d)', 'woocommerce-max-quantity' ),
+				$default_min
+			) : '',
+			'description' => __( 'Optional. Set a minimum quantity required per order. Enter a number, 1 or greater.', 'woocommerce-max-quantity' ),
 		)
 	);
 	woocommerce_wp_text_input(
@@ -177,6 +205,13 @@ function wc_max_qty_save_product_field( $post_id ) {
 	$new = isset( $_POST['_isa_wc_max_qty_product_max'] ) ? sanitize_text_field( wp_unslash( $_POST['_isa_wc_max_qty_product_max'] ) ) : ''; // Nonce verification is already taken care by WooCommerce
 	if ( $val !== $new ) {
 		$product->update_meta_data( '_isa_wc_max_qty_product_max', $new );
+		$product->save();
+	}
+	$val = $product->get_meta( '_isa_wc_max_qty_product_min' );
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing
+	$new = isset( $_POST['_isa_wc_max_qty_product_min'] ) ? sanitize_text_field( wp_unslash( $_POST['_isa_wc_max_qty_product_min'] ) ) : ''; // Nonce verification is already taken care by WooCommerce
+	if ( $val !== $new ) {
+		$product->update_meta_data( '_isa_wc_max_qty_product_min', $new );
 		$product->save();
 	}
 	$val = $product->get_meta( '_isa_wc_max_qty_product_multiple' );
@@ -230,6 +265,23 @@ function wc_get_product_multiple_limit( $product_id ) {
 
 
 /**
+ * Get the individual product min limit
+ *
+ * @param int $product_id The product ID.
+ * @return int|bool $limit The min limit number for this product, if set (1 or greater), otherwise false.
+ * @since 3.0
+ */
+function wc_get_product_min_limit( $product_id ) {
+	$product = wc_get_product( $product_id );
+	if ( ! $product ) {
+		return false;
+	}
+	$val = (int) $product->get_meta( '_isa_wc_max_qty_product_min' );
+	return $val >= 1 ? $val : false;
+}
+
+
+/**
  * Round a quantity down to the nearest valid multiple, without going below the multiple itself.
  *
  * @param int $value The value to round down.
@@ -247,6 +299,23 @@ function wc_max_qty_floor_to_multiple( $value, $multiple ) {
 
 
 /**
+ * Round a quantity up to the nearest valid multiple.
+ *
+ * @param int $value The value to round up.
+ * @param int $multiple The multiple to round to.
+ * @return int
+ * @since 3.0
+ */
+function wc_max_qty_ceil_to_multiple( $value, $multiple ) {
+	$value = (int) $value;
+	if ( $multiple <= 1 || $value <= 0 ) {
+		return $value;
+	}
+	return $multiple * (int) ceil( $value / $multiple );
+}
+
+
+/**
  * Set the max attribute value for the quantity input field for Add to cart forms.
  * This applies to Simple product Add To Cart forms, and ALL (simple and variable) products on the Cart page quantity field.
  *
@@ -257,9 +326,11 @@ function wc_max_qty_floor_to_multiple( $value, $multiple ) {
  */
 function wc_max_qty_input_args( $args, $product ) {
 	$default_max      = (int) get_option( 'isa_woocommerce_max_qty_limit' );
+	$default_min      = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
 	$default_multiple = (int) get_option( 'isa_woocommerce_max_qty_multiple' );
 	$product_id       = $product->get_parent_id() ? $product->get_parent_id() : $product->get_id();
 	$product_max      = wc_get_product_max_limit( $product_id );
+	$product_min      = wc_get_product_min_limit( $product_id );
 	$product_multiple = wc_get_product_multiple_limit( $product_id );
 	// Set product max or default max
 	if ( ! empty( $product_max ) ) {
@@ -267,14 +338,23 @@ function wc_max_qty_input_args( $args, $product ) {
 	} elseif ( ! empty( $default_max ) ) {
 		$args['max_value'] = $default_max;
 	}
+	// Set product min or default min
+	$min = ! empty( $product_min ) ? $product_min : ( $default_min > 0 ? $default_min : 0 );
 	// Set product multiple or default multiple
 	$multiple = ! empty( $product_multiple ) ? $product_multiple : ( $default_multiple > 1 ? $default_multiple : 1 );
 	if ( $multiple > 1 && ! $product->is_sold_individually() ) {
-		$args['step']      = $multiple;
-		$args['min_value'] = $multiple;
+		$args['step'] = $multiple;
 		if ( ! empty( $args['max_value'] ) ) {
 			$args['max_value'] = wc_max_qty_floor_to_multiple( $args['max_value'], $multiple );
 		}
+	}
+	// Set the min attribute from the greater of the configured min and the multiple, aligned to the multiple
+	if ( ( $min > 0 || $multiple > 1 ) && ! $product->is_sold_individually() ) {
+		$effective_min = max( $min, $multiple );
+		if ( $multiple > 1 ) {
+			$effective_min = wc_max_qty_ceil_to_multiple( $effective_min, $multiple );
+		}
+		$args['min_value'] = $effective_min;
 	}
 	// Limit our max by the available stock, if stock is lower
 	if ( ! empty( $args['max_value'] ) ) {
@@ -288,20 +368,22 @@ function wc_max_qty_input_args( $args, $product ) {
 
 
 /**
- * Filter the available variation to enforce the max on the quantity input field
+ * Filter the available variation to enforce the max/min on the quantity input field
  * on Add to cart forms for Variable Products.
  *
  * @param array  $args The current arguments.
  * @param object $product The product.
  * @param object $variation The product variation.
  */
-function wc_max_qty_variation_input_qty_max( $args, $product, $variation ) {
+function wc_max_qty_variation_input_qty_limits( $args, $product, $variation ) {
 	if ( is_admin() && ! is_ajax() ) {
 		return $args;
 	}
 	$default_max      = (int) get_option( 'isa_woocommerce_max_qty_limit' );
+	$default_min      = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
 	$default_multiple = (int) get_option( 'isa_woocommerce_max_qty_multiple' );
 	$product_max      = wc_get_product_max_limit( $variation->get_parent_id() );
+	$product_min      = wc_get_product_min_limit( $variation->get_parent_id() );
 	$product_multiple = wc_get_product_multiple_limit( $variation->get_parent_id() );
 	// Set product max or default max
 	if ( ! empty( $product_max ) ) {
@@ -309,14 +391,23 @@ function wc_max_qty_variation_input_qty_max( $args, $product, $variation ) {
 	} elseif ( ! empty( $default_max ) ) {
 		$args['max_qty'] = $default_max;
 	}
+	// Set product min or default min
+	$min = ! empty( $product_min ) ? $product_min : ( $default_min > 0 ? $default_min : 0 );
 	// Set product multiple or default multiple
 	$multiple = ! empty( $product_multiple ) ? $product_multiple : ( $default_multiple > 1 ? $default_multiple : 1 );
 	if ( $multiple > 1 && ! $variation->is_sold_individually() ) {
-		$args['step']    = $multiple;
-		$args['min_qty'] = $multiple;
+		$args['step'] = $multiple;
 		if ( ! empty( $args['max_qty'] ) ) {
 			$args['max_qty'] = wc_max_qty_floor_to_multiple( $args['max_qty'], $multiple );
 		}
+	}
+	// Set the min attribute from the greater of the configured min and the multiple, aligned to the multiple
+	if ( ( $min > 0 || $multiple > 1 ) && ! $variation->is_sold_individually() ) {
+		$effective_min = max( $min, $multiple );
+		if ( $multiple > 1 ) {
+			$effective_min = wc_max_qty_ceil_to_multiple( $effective_min, $multiple );
+		}
+		$args['min_qty'] = $effective_min;
 	}
 	// Limit our max by the available stock, if stock is lower
 	if ( ! empty( $args['max_qty'] ) ) {
@@ -372,8 +463,10 @@ function wc_max_qty_add_to_cart_validation( $passed, $product_id, $quantity, $va
 	// If it hasn't passed, we don't need to bother validating further
 	if ( $passed ) {
 		$default_max      = (int) get_option( 'isa_woocommerce_max_qty_limit' );
+		$default_min      = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
 		$default_multiple = (int) get_option( 'isa_woocommerce_max_qty_multiple' );
 		$product_max      = wc_get_product_max_limit( $product_id );
+		$product_min      = wc_get_product_min_limit( $product_id );
 		$product_multiple = wc_get_product_multiple_limit( $product_id );
 		// Set product max or default max
 		if ( ! empty( $product_max ) ) {
@@ -383,9 +476,11 @@ function wc_max_qty_add_to_cart_validation( $passed, $product_id, $quantity, $va
 		} else {
 			$new_max = 0;
 		}
+		// Set product min or default min
+		$new_min = ! empty( $product_min ) ? $product_min : ( $default_min > 0 ? $default_min : 0 );
 		// Set product multiple or default multiple
 		$multiple = ! empty( $product_multiple ) ? $product_multiple : ( $default_multiple > 1 ? $default_multiple : 1 );
-		if ( ! $new_max && $multiple <= 1 ) {
+		if ( ! $new_max && ! $new_min && $multiple <= 1 ) {
 			return $passed;
 		}
 		$product = wc_get_product( $product_id );
@@ -476,6 +571,31 @@ function wc_max_qty_add_to_cart_validation( $passed, $product_id, $quantity, $va
 				);
 			}
 		}
+		// Check if the quantity being added is below the effective minimum.
+		if ( $new_min > 0 || $multiple > 1 ) {
+			$effective_min = max( $new_min, $multiple );
+			if ( $multiple > 1 ) {
+				$effective_min = wc_max_qty_ceil_to_multiple( $effective_min, $multiple );
+			}
+			if ( $effective_min > 0 && $quantity < $effective_min ) {
+				// oops. too little.
+				$passed = false;
+				wc_add_notice(
+					apply_filters(
+						'isa_wc_max_qty_min_error_message',
+						sprintf(
+							/* translators: %1$s minimum items, %2$s product name, %3$s: cart link */
+							__( 'You must add a minimum of %1$s %2$s’s to %3$s.', 'woocommerce-max-quantity' ),
+							$effective_min,
+							$product_title,
+							'<a href="' . esc_url( wc_get_cart_url() ) . '">' . __( 'your cart', 'woocommerce-max-quantity' ) . '</a>'
+						),
+						$effective_min
+					),
+					'error'
+				);
+			}
+		}
 	}
 	return $passed;
 }
@@ -494,8 +614,10 @@ function wc_max_qty_update_cart_validation( $passed, $cart_item_key, $values, $q
 	// If it hasn't passed, we don't need to bother validating further
 	if ( $passed ) {
 		$default_max      = (int) get_option( 'isa_woocommerce_max_qty_limit' );
+		$default_min      = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
 		$default_multiple = (int) get_option( 'isa_woocommerce_max_qty_multiple' );
 		$product_max      = wc_get_product_max_limit( $values['product_id'] );
+		$product_min      = wc_get_product_min_limit( $values['product_id'] );
 		$product_multiple = wc_get_product_multiple_limit( $values['product_id'] );
 		// Set product max or default max
 		if ( ! empty( $product_max ) ) {
@@ -505,9 +627,11 @@ function wc_max_qty_update_cart_validation( $passed, $cart_item_key, $values, $q
 		} else {
 			$new_max = 0;
 		}
+		// Set product min or default min
+		$new_min = ! empty( $product_min ) ? $product_min : ( $default_min > 0 ? $default_min : 0 );
 		// Set product multiple or default multiple
 		$multiple = ! empty( $product_multiple ) ? $product_multiple : ( $default_multiple > 1 ? $default_multiple : 1 );
-		if ( ! $new_max && $multiple <= 1 ) {
+		if ( ! $new_max && ! $new_min && $multiple <= 1 ) {
 			return $passed;
 		}
 		$product = wc_get_product( $values['product_id'] );
@@ -556,6 +680,30 @@ function wc_max_qty_update_cart_validation( $passed, $cart_item_key, $values, $q
 				$passed = false;
 			}
 		}
+		// Check if the new quantity is below the effective minimum.
+		if ( $new_min > 0 || $multiple > 1 ) {
+			$effective_min = max( $new_min, $multiple );
+			if ( $multiple > 1 ) {
+				$effective_min = wc_max_qty_ceil_to_multiple( $effective_min, $multiple );
+			}
+			if ( $effective_min > 0 && $quantity < $effective_min ) {
+				wc_add_notice(
+					apply_filters(
+						'isa_wc_max_qty_min_error_message',
+						sprintf(
+							/* translators: %1$s minimum items, %2$s product name, %3$s: cart link */
+							__( 'You must add a minimum of %1$s %2$s’s to %3$s.', 'woocommerce-max-quantity' ),
+							$effective_min,
+							$product->get_name(),
+							'<a href="' . esc_url( wc_get_cart_url() ) . '">' . __( 'your cart', 'woocommerce-max-quantity' ) . '</a>'
+						),
+						$effective_min
+					),
+					'error'
+				);
+				$passed = false;
+			}
+		}
 	}
 	return $passed;
 }
@@ -588,8 +736,32 @@ function blocks_cart_max_qty( $cart_max, $product ) {
 
 
 /**
+ * Set minimum quantity on the block-based cart
+ *
+ * @since 3.0
+ * @param int    $cart_min Current minimum quantity.
+ * @param object $product Current product.
+ * @return int
+ */
+function blocks_cart_min_qty( $cart_min, $product ) {
+	if ( $product->is_sold_individually() ) {
+		return $cart_min;
+	}
+	$default_min = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
+	$product_min = wc_get_product_min_limit( $product->get_parent_id() ? $product->get_parent_id() : $product->get_id() );
+	// Set product min or default min
+	$new_min = ! empty( $product_min ) ? $product_min : ( $default_min > 0 ? $default_min : 0 );
+	if ( ! empty( $new_min ) ) {
+		$cart_min = max( (int) $cart_min, $new_min );
+	}
+	return $cart_min;
+}
+
+
+/**
  * Set the quantity used by the "Add to cart" link on product archives/lists (classic templates,
- * shortcodes and widgets), so it adds a valid multiple instead of always trying to add 1.
+ * shortcodes and widgets), so it adds a valid multiple and/or the minimum instead of always
+ * trying to add 1.
  *
  * @since 3.0
  * @param array      $args The current arguments.
@@ -598,8 +770,12 @@ function blocks_cart_max_qty( $cart_max, $product ) {
  */
 function wc_max_qty_loop_add_to_cart_args( $args, $product ) {
 	$multiple = wc_max_qty_get_loop_multiple( $product );
+	$quantity = max( $multiple, wc_max_qty_get_loop_min( $product ) );
 	if ( $multiple > 1 ) {
-		$args['quantity'] = $multiple;
+		$quantity = wc_max_qty_ceil_to_multiple( $quantity, $multiple );
+	}
+	if ( $quantity > 1 ) {
+		$args['quantity'] = $quantity;
 	}
 	return $args;
 }
@@ -608,7 +784,7 @@ function wc_max_qty_loop_add_to_cart_args( $args, $product ) {
 /**
  * Set the quantity used by the block-based "Add to Cart" button on product archives/lists
  * (Product Collection/Products block, FSE archive templates), so it adds a valid multiple
- * instead of always trying to add 1.
+ * and/or the minimum instead of always trying to add 1.
  *
  * @since 3.0
  * @param int $quantity The current quantity.
@@ -620,8 +796,12 @@ function wc_max_qty_loop_add_to_cart_quantity( $quantity, $product_id ) {
 	if ( ! $product ) {
 		return $quantity;
 	}
-	$multiple = wc_max_qty_get_loop_multiple( $product );
-	return $multiple > 1 ? $multiple : $quantity;
+	$multiple      = wc_max_qty_get_loop_multiple( $product );
+	$loop_quantity = max( $multiple, wc_max_qty_get_loop_min( $product ) );
+	if ( $multiple > 1 ) {
+		$loop_quantity = wc_max_qty_ceil_to_multiple( $loop_quantity, $multiple );
+	}
+	return $loop_quantity > 1 ? $loop_quantity : $quantity;
 }
 
 
@@ -644,6 +824,28 @@ function wc_max_qty_get_loop_multiple( $product ) {
 	}
 	$default_multiple = (int) get_option( 'isa_woocommerce_max_qty_multiple' );
 	return $default_multiple > 1 ? $default_multiple : 1;
+}
+
+
+/**
+ * Resolve the effective minimum quantity to use for a product/list "Add to cart"
+ * button (product override, else the store-wide default, else 0 i.e. no restriction).
+ *
+ * @since 3.0
+ * @param WC_Product $product The product.
+ * @return int
+ */
+function wc_max_qty_get_loop_min( $product ) {
+	if ( $product->is_sold_individually() ) {
+		return 0;
+	}
+	$product_id  = $product->get_parent_id() ? $product->get_parent_id() : $product->get_id();
+	$product_min = wc_get_product_min_limit( $product_id );
+	if ( ! empty( $product_min ) ) {
+		return $product_min;
+	}
+	$default_min = (int) get_option( 'isa_woocommerce_max_qty_min_limit' );
+	return $default_min > 0 ? $default_min : 0;
 }
 
 
