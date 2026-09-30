@@ -47,6 +47,7 @@ The plugin has 3 global settings and the same 3 settings again per product, so y
 
 Already know our other WooCommerce (premium) plugins?
 
+* [EU Guarantee Notice and GARAN Label for WordPress and WooCommerce](https://nakedcatplugins.com/product/eu-guarantee-notice-and-garan-label-for-wordpress-and-woocommerce/) - Show the mandatory EU guarantee notice and the EU GARAN label with the official European Commission artwork, and let Proof of Notice check every day that the notice is still on your site
 * [Simple Checkout Fields Manager for WooCommerce](https://nakedcatplugins.com/product/simple-custom-fields-for-woocommerce-blocks-checkout/) - Add custom fields and manage (remove, make required or optional) core fields on the new WooCommerce Block-based Checkout
 * [Simple WooCommerce Order Approval](https://nakedcatplugins.com/product/simple-woocommerce-order-approval/) - The hassle-free solution for WooCommerce order approval before payment
 * [Shop as Client for WooCommerce](https://nakedcatplugins.com/product/shop-as-client-for-woocommerce-pro-add-on/) - Quickly create orders on behalf of your customers
