@@ -41,19 +41,19 @@ Header photo by [Mick Haupt](https://unsplash.com/@rocinante_11).
 The plugin has 3 global settings and the same 3 settings again per product, so you can override the global ones for a specific product. You can use these settings in a variety of ways to accomplish the unique goals of your store:
 
 1. To set a global maximum, minimum and/or multiple to affect all products, go to WooCommerce, Settings, Products tab. Click “Inventory”. Scroll down to “Maximum quantity per product”, “Minimum quantity per product” and “Sell in multiples of”. Set your desired values there.
-2. To override this for a single product, go the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the same three settings, “Max quantity per order”, “Min quantity per order” and “Sell in multiples of”, where you can set your desired values for that product.
+2. To override this for a single product, go to the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the same three settings, “Max quantity per order”, “Min quantity per order” and “Sell in multiples of”, where you can set your desired values for that product.
 
 == Other (premium) plugins ==
 
 Already know our other WooCommerce (premium) plugins?
 
 * [EU Guarantee Notice and GARAN Label for WordPress and WooCommerce](https://nakedcatplugins.com/product/eu-guarantee-notice-and-garan-label-for-wordpress-and-woocommerce/) - Show the mandatory EU guarantee notice and the EU GARAN label with the official European Commission artwork, and let Proof of Notice check every day that the notice is still on your site
-* [Simple Checkout Fields Manager for WooCommerce](https://nakedcatplugins.com/product/simple-custom-fields-for-woocommerce-blocks-checkout/) - Add custom fields and manage (remove, make required or optional) core fields on the new WooCommerce Block-based Checkout
+* [Simple Checkout Fields Manager for WooCommerce](https://nakedcatplugins.com/product/simple-custom-fields-for-woocommerce-blocks-checkout/) - Add custom fields and manage (remove, make required or optional) core fields on the WooCommerce Block-based Checkout
 * [Simple WooCommerce Order Approval](https://nakedcatplugins.com/product/simple-woocommerce-order-approval/) - The hassle-free solution for WooCommerce order approval before payment
 * [Shop as Client for WooCommerce](https://nakedcatplugins.com/product/shop-as-client-for-woocommerce-pro-add-on/) - Quickly create orders on behalf of your customers
 * [Advanced Coupon Restrictions for WooCommerce](https://nakedcatplugins.com/product/advanced-coupon-restrictions-for-woocommerce/) - Create coupons for any Product Taxonomy, User details, and Order destination.
-* [Taxonomy/Term and Role based Discounts for WooCommerce](https://nakedcatplugins.com/product/taxonomy-term-and-role-based-discounts-for-woocommerce-pro-add-on/) - Easily create bulk discount rules for products based on any taxonomy terms (built-in or custom).
-* [DPD / SEUR / Geopost Pickup and Lockers network for WooCommerce](https://nakedcatplugins.com/product/dpd-seur-geopost-pickup-and-lockers-network-for-woocommerce/) - Deliver your WooCommerce orders on the DPD and SEUR Pickup network of Parcelshops and Lockers in 21 European countries
+* [Taxonomy/Term and Role-based Discounts for WooCommerce](https://nakedcatplugins.com/product/taxonomy-term-and-role-based-discounts-for-woocommerce-pro-add-on/) - Easily create bulk discount rules for products based on any taxonomy terms (built-in or custom).
+* [DPD / Geopost Pickup and Lockers network for WooCommerce](https://nakedcatplugins.com/product/dpd-seur-geopost-pickup-and-lockers-network-for-woocommerce/) - Deliver your WooCommerce orders on the DPD, Chronopost, BRT, SEUR and PostNord Pickup network of Parcelshops and Lockers in 25 European countries
 
 == Frequently Asked Questions ==
 
@@ -73,11 +73,11 @@ Yes, since version 3.0, globally or per product.
 
 Yes, since version 3.0, globally or per product.
 
-= Is this plugin compatible with the new WooCommerce High-Performance Order Storage? =
+= Is this plugin compatible with WooCommerce High-Performance Order Storage? =
 
 Yes, since version 2.0.
 
-= Is this plugin compatible with the new WooCommerce block-based Cart and Checkout? =
+= Is this plugin compatible with the WooCommerce block-based Cart and Checkout? =
 
 Yes, since version 2.0.
 
