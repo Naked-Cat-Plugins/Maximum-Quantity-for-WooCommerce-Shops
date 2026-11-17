@@ -99,9 +99,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/wooc
 
 == Screenshots ==
 
-1. The global setting: It is labeled “Maximum quantity per product” and is found at WooCommerce, Settings, Products tab, Inventory link.
+1. The global settings (maximum, minimum and multiple), at WooCommerce > Settings > Products > Inventory
 
-2. The individual product’s setting: It is labeled “Max quantity per order” and is found on the individual product edit screen, in the Product Data box, on the Inventory tab.
+2. The product’s own settings, on the Inventory tab of the Product data box
 
 == Changelog ==
 
