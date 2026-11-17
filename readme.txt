@@ -40,7 +40,7 @@ Header photo by [Mick Haupt](https://unsplash.com/@rocinante_11).
 
 The plugin has 3 global settings and the same 3 settings again per product, so you can override the global ones for a specific product. You can use these settings in a variety of ways to accomplish the unique goals of your store:
 
-1. To set a global maximum, minimum and/or multiple to affect all products, go to WooCommerce, Settings, Products tab. Click “Inventory”. Scroll down to “Maximum quantity per product”, “Minimum quantity per product” and “Sell in multiples of”. Set your desired values there.
+1. To set a global maximum, minimum and/or multiple to affect all products, go to WooCommerce, Settings, Products tab. Click “Inventory”. Scroll down to the “Maximum, Minimum and Multiple Quantity for WooCommerce Shops” section, with “Maximum quantity per product”, “Minimum quantity per product” and “Sell in multiples of”. Set your desired values there.
 2. To override this for a single product, go to the product’s own “Edit product” page. Scroll down to the “Product Data” box. Click on the Inventory tab. There, you’ll see the same three settings, “Max quantity per order”, “Min quantity per order” and “Sell in multiples of”, where you can set your desired values for that product.
 
 == Other (premium) plugins ==
